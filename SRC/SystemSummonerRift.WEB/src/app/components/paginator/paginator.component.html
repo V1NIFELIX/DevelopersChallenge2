@@ -1,0 +1,24 @@
+<nav aria-label="Paginas do resultado">
+  <!-- TO DO: Paginação pelo backend -->
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" (click)="handlePrevious()" href="#">Anterior</a></li>
+    <div *ngFor="let i of Arr(numberOfPages).fill(1), let x = index">
+      <li class="page-item"><a class="page-link" (click)="handlePageSet(x)" *ngIf="x < 5" href="#">{{x + 1}}</a></li>
+    </div>
+    <li class="page-item">
+      <div class="btn-group" *ngIf="numberOfPages > 5" ngbDropdown role="group"
+        aria-label="Button group with nested dropdown">
+        <button class="page-link" ngbDropdownToggle>...{{thisPage > 5 ? thisPage : ''}}</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <button *ngFor="let o of Arr(numberOfPages).fill(1), let y = index" (click)="handlePageSet(y)"
+            ngbDropdownItem>
+            {{ y + 1}}
+          </button>
+        </div>
+      </div>
+    </li>
+
+
+    <li class="page-item"><a class="page-link" (click)="handleNext()" href="#">Próximo</a></li>
+  </ul>
+</nav>

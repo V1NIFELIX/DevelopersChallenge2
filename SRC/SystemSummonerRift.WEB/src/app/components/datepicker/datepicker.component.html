@@ -1,0 +1,10 @@
+<div class="input-group">
+  <input readonly="true" [(ngModel)]="date" (ngModelChange)="registerDate($event)"
+  class="form-control" placeholder="DD/MM/AAAA" name="dp" [displayMonths]="1" [navigation]="'select'"
+    [outsideDays]="'visible'" [showWeekNumbers]="false" ngbDatepicker #d="ngbDatepicker">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+      <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+    </button>
+  </div>
+</div>

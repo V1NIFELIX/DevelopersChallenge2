@@ -1,0 +1,18 @@
+.container.content{
+  padding-top: 25px;
+  max-width: 95% !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.system-title{
+  font-size: 24px !important;
+}
+
+.content-card{
+  margin-top: 25px;
+}
+
+.footer-text{
+  font-size: 16px;
+}
