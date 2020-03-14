@@ -7,17 +7,20 @@ using NiboSystemSummonerRift.Infrastructure.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NiboSystemSummonerRift.ApplicationCore.Entity;
+using NiboSystemSummonerRift.ApplicationCore.Selectors;
+using AutoMapper;
 
 namespace NiboSystemSummonerRift.Infrastructure.Repository
 {
-    public class SSRRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class SSRRepository<TEntity, TSelector> : IRepository<TEntity, TSelector> where TEntity : class
     {
-
+        protected readonly IMapper _mapper;
         protected readonly SSRContext _dbContext;
 
-        public SSRRepository(SSRContext dbContext)
+        public SSRRepository(SSRContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public virtual TEntity Add(TEntity entity)
@@ -33,14 +36,19 @@ namespace NiboSystemSummonerRift.Infrastructure.Repository
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicado)
-        {
-            return _dbContext.Set<TEntity>().Where(predicado).AsEnumerable();
-        }
 
         public virtual TEntity GetById(int id)
         {
             return _dbContext.Set<TEntity>().Find(id);
+        }
+
+        public virtual IEnumerable<TEntity> Get(TSelector seletor)
+        {
+            IQueryable<TEntity> query = this.CreateQuery();
+
+            query = this.CreateParameters(seletor, query);
+
+            return query;
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -53,6 +61,13 @@ namespace NiboSystemSummonerRift.Infrastructure.Repository
             _dbContext.Set<TEntity>().Remove(entity);
             _dbContext.SaveChanges();
         }
+
+        public virtual IQueryable<TEntity> CreateQuery()
+        {
+            return this._dbContext.Set<TEntity>().AsNoTracking().AsQueryable();
+        }
+
+        public abstract IQueryable<TEntity> CreateParameters(TSelector seletor, IQueryable<TEntity> query);
 
 
     }

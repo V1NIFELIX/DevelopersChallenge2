@@ -42,11 +42,11 @@ namespace NiboSystemSummonerRift.ApplicationCore.Services
                             Value = Convert.ToDecimal(item.Value.Trim().Replace(".", ","))
                         };
 
-                        var resultFile = _transactionRepository.Find(
-                        l => l.Description.Equals(transactionEntity.Description)
-                        && l.Date.Equals(transactionEntity.Date.ToShortDateString())
-                        && l.PaymentType.Equals(transactionEntity.PaymentType)
-                        && l.Value.Equals(transactionEntity.Value));
+                        //var resultFile = _transactionRepository.Get(
+                        //l => l.Description.Equals(transactionEntity.Description)
+                        //&& l.Date.Equals(transactionEntity.Date.ToShortDateString())
+                        //&& l.PaymentType.Equals(transactionEntity.PaymentType)
+                        //&& l.Value.Equals(transactionEntity.Value));
                                                
                         var resultBd = listTransactions.Where(
                         l => l.Date.Equals(transactionEntity.Date)
@@ -54,7 +54,7 @@ namespace NiboSystemSummonerRift.ApplicationCore.Services
                         && l.Value.Equals(transactionEntity.Value));
 
 
-                        if (!resultBd.Any() && !resultFile.Any()) {
+                        if (!resultBd.Any()) {
                             _transactionRepository.Add(transactionEntity);
                         }
                     }

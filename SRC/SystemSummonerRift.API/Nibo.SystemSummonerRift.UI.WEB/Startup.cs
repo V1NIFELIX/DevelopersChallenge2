@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +17,7 @@ using NiboSystemSummonerRift.ApplicationCore.Interfaces.Services;
 using NiboSystemSummonerRift.ApplicationCore.Services;
 using NiboSystemSummonerRift.Infrastructure.Data;
 using NiboSystemSummonerRift.Infrastructure.Repository;
+
 
 namespace Nibo.SystemSummonerRift.UI.WEB
 {
@@ -38,6 +40,8 @@ namespace Nibo.SystemSummonerRift.UI.WEB
             services.AddDbContext<SSRContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper();
 
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<ITransactionService, TransactionService>();
