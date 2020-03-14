@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nibo.SystemSummonerRift.UI.WEB.ViewModel;
 using NiboSystemSummonerRift.ApplicationCore.Entity;
 using NiboSystemSummonerRift.ApplicationCore.Interfaces.Services;
 using NiboSystemSummonerRift.ApplicationCore.Selectors;
@@ -36,16 +37,38 @@ namespace Nibo.SystemSummonerRift.UI.WEB.Controllers
         [HttpGet("list")]
         public ActionResult GetAll([FromBody]TransactionSelector seletor)
         {
-            return Json(_mapper.Map<IEnumerable>(_transactionSevice.Get(seletor)));
-
+            try
+            {
+                return Json(_mapper.Map<IEnumerable>(_transactionSevice.Get(seletor)));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ResponseViewModel(ex.Message));
+            }
         }
 
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<IActionResult> UploadFiles(List<IFormFile> files)
-        {   
-          var ofxFiles = await _ofxFileService.Save(files, Path.GetFullPath("Ofx"));
-          var model = _ofxFileService.ImportFile(ofxFiles.ToList());
-          return View();
+        {
+            try
+            {   
+                if(files.Count > 0)
+                {
+                    var ofxFiles = await _ofxFileService.Save(files, Path.GetFullPath("Ofx"));
+                    var model = _ofxFileService.ImportFile(ofxFiles.ToList());
+                    return StatusCode(200);
+                }
+                else
+                {
+                    return StatusCode(500, new ResponseViewModel("Nenhum arquivo foi selecionado para importação"));
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new ResponseViewModel(ex.Message));
+            }
+
         }
     }
 }

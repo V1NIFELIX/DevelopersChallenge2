@@ -15,6 +15,7 @@ namespace NiboSystemSummonerRift.ApplicationCore.Interfaces.Repository
         IEnumerable<TEntity> Get(TSelector seletor);
         TEntity GetById(int id);
         void Delete(TEntity entity);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
     }
 }

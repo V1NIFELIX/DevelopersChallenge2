@@ -42,19 +42,19 @@ namespace NiboSystemSummonerRift.ApplicationCore.Services
                             Value = Convert.ToDecimal(item.Value.Trim().Replace(".", ","))
                         };
 
-                        //var resultFile = _transactionRepository.Get(
-                        //l => l.Description.Equals(transactionEntity.Description)
-                        //&& l.Date.Equals(transactionEntity.Date.ToShortDateString())
-                        //&& l.PaymentType.Equals(transactionEntity.PaymentType)
-                        //&& l.Value.Equals(transactionEntity.Value));
-                                               
+                        var resultFile = _transactionRepository.Find(
+                        l => l.Description.Equals(transactionEntity.Description)
+                        && l.Date.Equals(transactionEntity.Date.ToShortDateString())
+                        && l.PaymentType.Equals(transactionEntity.PaymentType)
+                        && l.Value.Equals(transactionEntity.Value));
+
                         var resultBd = listTransactions.Where(
                         l => l.Date.Equals(transactionEntity.Date)
                         && l.Description.Equals(transactionEntity.Description)
                         && l.Value.Equals(transactionEntity.Value));
 
 
-                        if (!resultBd.Any()) {
+                        if (!resultBd.Any() && !resultFile.Any()) {
                             _transactionRepository.Add(transactionEntity);
                         }
                     }
@@ -62,6 +62,7 @@ namespace NiboSystemSummonerRift.ApplicationCore.Services
             }
             return _transactionRepository.GetAll();
         }
+
 
         public async Task<IEnumerable<string>> Save(List<IFormFile> files, string path)
         {

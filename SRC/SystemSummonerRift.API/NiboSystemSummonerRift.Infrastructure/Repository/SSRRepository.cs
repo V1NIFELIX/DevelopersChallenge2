@@ -69,6 +69,9 @@ namespace NiboSystemSummonerRift.Infrastructure.Repository
 
         public abstract IQueryable<TEntity> CreateParameters(TSelector seletor, IQueryable<TEntity> query);
 
-
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicado)
+        {
+            return _dbContext.Set<TEntity>().Where(predicado).AsEnumerable();
+        }
     }
 }
