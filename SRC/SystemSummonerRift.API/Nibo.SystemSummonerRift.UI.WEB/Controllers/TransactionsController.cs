@@ -35,11 +35,19 @@ namespace Nibo.SystemSummonerRift.UI.WEB.Controllers
 
         // GET: Transactions
         [HttpGet("list")]
-        public ActionResult GetAll([FromBody]TransactionSelector seletor)
+        public ActionResult GetAll([FromQuery] TransactionSelector seletor)
         {
             try
             {
-                return Json(_mapper.Map<IEnumerable>(_transactionSevice.Get(seletor)));
+                if(seletor.PaymentType == null)
+                {
+                    return Json(_mapper.Map<IEnumerable>(_transactionSevice.GetAll()));
+                }
+                else
+                {
+                    return Json(_mapper.Map<IEnumerable>(_transactionSevice.Get(seletor)));
+                }
+                
             }
             catch (Exception ex)
             {

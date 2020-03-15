@@ -13,6 +13,8 @@ namespace NiboSystemSummonerRift.ApplicationCore.Interfaces.Services
         TransactionEntity Add(TransactionEntity entity);
 
         IEnumerable<TransactionEntity> Get(TransactionSelector selector);
+        IEnumerable<TransactionEntity> GetAll();
+
 
 
     }

@@ -15,5 +15,4 @@ export class ImportsComponent implements OnInit {
   ngOnInit(): void {
     this.subtitleService.setTitle('Imports');
   }
-
 }

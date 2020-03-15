@@ -32,9 +32,6 @@ namespace NiboSystemSummonerRift.Infrastructure.Repository
             if (seletor.PaymentType.Length > 0)
                 query = query.Where(l => l.PaymentType == seletor.PaymentType);
 
-            if (seletor.Description.Length > 0)
-                query = query.Where(l => l.Description == seletor.Description);
-
             return query;
         }
     }
