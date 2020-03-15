@@ -3,26 +3,26 @@
     <div class="col-md-12">
       <form>
         <div class="form-group d-flex flex-column" style="margin-bottom: 25px;">
-          <label for='file1'>First report</label>
-          <input (change)="fileChange1($event)" type="file" name="file1" />
+          <label for='files1'>Primeira importação</label>
+          <input (change)="fileChange1($event)" type="file" name="files1" />
         </div>
         <div class='form-group d-flex flex-column'>
-          <label for='file2'>Second report</label>
-          <input (change)="fileChange2($event)" type="file" name="file2" />
+          <label for='files2'>Segunda Importação</label>
+          <input (change)="fileChange2($event)" type="file" name="files2" />
         </div>
         <div class='d-flex justify-content-start'>
           <button (click)="onSubmit()" [disabled]="!fileOneLoaded || !fileTwoLoaded" type="button"
-              class="btn btn-primary btn-lg">Send</button>
+              class="btn btn-primary btn-lg">Enviar</button>
         </div>
         <div class="danger" *ngIf="error">
           <div class="alert alert-danger" role="alert">
-            Failed to import.<br>
-            <b>Details: </b> {{errorMsg}}
+            Falha ao importar.<br>
+            <b>Detalhes: </b> {{errorMsg}}
           </div>
         </div>
         <div class="success" *ngIf="success">
           <div class="alert alert-success" role="alert">
-            Import successfull!
+           Importação enviada com sucesso!!!
           </div>
         </div>
       </form>

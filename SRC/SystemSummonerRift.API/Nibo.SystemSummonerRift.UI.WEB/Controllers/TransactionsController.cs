@@ -56,7 +56,7 @@ namespace Nibo.SystemSummonerRift.UI.WEB.Controllers
         }
 
         [HttpPost("upload"), DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadFiles(List<IFormFile> files)
+        public async Task<IActionResult> UploadFiles([FromForm]List<IFormFile> files)
         {
             try
             {   

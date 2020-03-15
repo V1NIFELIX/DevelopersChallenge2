@@ -51,14 +51,14 @@ export class UploadComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.uploading = true;    
+    this.uploading = true;
 
     const formData = new FormData();
-    formData.append('file1', this.fileData1);
-    formData.append('file2', this.fileData2);
-  
+    formData.append('files', this.fileData1);
+    formData.append('files', this.fileData2);
 
-    this.http.post(`${environment.ApiUrl}/${this.endPoint}`, formData).subscribe(response => {
+
+    this.http.post(`${environment.ApiUrl}/api/transactions/upload`, formData).subscribe(response => {
       this.success = true;
       this.toastService.show('File upload succeded', { classname: 'bg-success text-light', delay: 5000 })
     },err => {
@@ -67,6 +67,6 @@ export class UploadComponent implements OnInit {
       this.errorMsg = _err.error.errorMessage
       this.toastService.show(this.errorMsg, { classname: 'bg-danger text-light', delay: 5000 })
     });
-    
+
   }
 }
