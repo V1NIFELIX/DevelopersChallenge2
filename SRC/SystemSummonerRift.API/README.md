@@ -8,8 +8,8 @@ To start the application it is necessary to use migration to raise SQL Express.
 
 In the solution NiboSystemSummonerRift.Infrastructure you should execute the following commands;
 
-add-migration Initial
-update-database
+- [ ] add-migration Initial 
+- [ ] update-database
 
 
 
